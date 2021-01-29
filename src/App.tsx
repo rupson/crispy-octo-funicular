@@ -1,8 +1,20 @@
 import React from 'react';
+import axios from 'axios'
 import logo from './logo.svg';
 import './App.css';
 
 const App: React.FC<{}> = () =>  {
+
+  const load = async () => {
+    const response = await axios.get('/')
+    return response.data
+    
+  }
+  
+  React.useEffect( () => {
+    load().then(console.log)
+  }, [])
+
   return (
     <div className="App">
       <header className="App-header">
