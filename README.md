@@ -1,3 +1,10 @@
+# crispy-octo-funicular
+the name was a suggestion from GH 🤷‍♂️
+
+[unleash docs](https://unleash.github.io/) | [unleash GH](https://github.com/unleash/unleash) | [unleash node client](https://github.com/unleash/unleash-client-node)
+
+---
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
