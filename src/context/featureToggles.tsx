@@ -16,7 +16,7 @@ const fetchToggles: (userId: string) => Promise<FeatureToggleContextType> = asyn
     return (await axios.get(`/feature-toggles?userId=${userId}`)).data
 }
 
-const FeatureToggleProvider: React.FC<{}> = ({children}) => {
+const FeatureToggleProvider: React.FC<{userId: string}> = ({children}) => {
     const [shouldFetchToggles, setShouldFetchToggles] = React.useState(false)
     const [toggles, setToggles] = React.useState<FeatureToggleContextType>([])
 
@@ -24,15 +24,10 @@ const FeatureToggleProvider: React.FC<{}> = ({children}) => {
 
     React.useEffect( () => {
         const pollToggleInterval = setInterval( () => {
-            console.log(`context::interval>> POLLING!!`)
             setShouldFetchToggles(shouldFetchToggles => !shouldFetchToggles)
         }, 1000)
         return () => clearInterval(pollToggleInterval)
     }, [])
-
-    React.useEffect( () => {
-        console.log(`toggles have changed: `, toggles)
-    }, [toggles])
 
     React.useEffect( () => {
         fetchToggles(userId).then(setToggles)
