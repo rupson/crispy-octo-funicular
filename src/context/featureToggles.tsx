@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import { UserContext } from './userContext'
 
 interface FeatureToggle {
     name: string
@@ -11,13 +12,15 @@ type FeatureToggleContextType = FeatureToggle[]
 export const FeatureToggleContext = React.createContext<FeatureToggleContextType>([])
 
 
-const fetchToggles: () => Promise<FeatureToggleContextType> = async () => {
-    return (await axios.get('/feature-toggles')).data
+const fetchToggles: (userId: string) => Promise<FeatureToggleContextType> = async (userId) => {
+    return (await axios.get(`/feature-toggles?userId=${userId}`)).data
 }
 
 const FeatureToggleProvider: React.FC<{}> = ({children}) => {
     const [shouldFetchToggles, setShouldFetchToggles] = React.useState(false)
     const [toggles, setToggles] = React.useState<FeatureToggleContextType>([])
+
+    const {userId} = React.useContext(UserContext)
 
     React.useEffect( () => {
         const pollToggleInterval = setInterval( () => {
@@ -32,7 +35,7 @@ const FeatureToggleProvider: React.FC<{}> = ({children}) => {
     }, [toggles])
 
     React.useEffect( () => {
-        fetchToggles().then(setToggles)
+        fetchToggles(userId).then(setToggles)
 
     }, [shouldFetchToggles])
 
