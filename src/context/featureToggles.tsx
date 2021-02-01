@@ -16,7 +16,7 @@ const fetchToggles: (userId: string) => Promise<FeatureToggleContextType> = asyn
     return (await axios.get(`/feature-toggles?userId=${userId}`)).data
 }
 
-const FeatureToggleProvider: React.FC<{userId: string}> = ({children}) => {
+const FeatureToggleProvider: React.FC<{}> = ({children}) => {
     const [shouldFetchToggles, setShouldFetchToggles] = React.useState(false)
     const [toggles, setToggles] = React.useState<FeatureToggleContextType>([])
 
