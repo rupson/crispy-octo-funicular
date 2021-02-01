@@ -22,10 +22,10 @@
   },
   "scripts": {
     "start-client": "react-scripts start",
-    "build": "react-scripts build && cd server && yarn build",
+    "build": "rm -rf server/dist && react-scripts build && cd server && yarn build && mv -f ../build dist/build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start": "yarn run build && (cd server && yarn start)"
+    "start": "yarn build && (cd server && yarn start)"
   },
   "eslintConfig": {
     "extends": [
